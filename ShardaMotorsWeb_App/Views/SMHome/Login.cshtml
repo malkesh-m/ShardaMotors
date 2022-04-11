@@ -1,0 +1,187 @@
+﻿@model ShardaMotorsWeb_App.Models.Users
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+@Html.Partial("ProfileMenu")
+<div class="modal fade" id="myPasswordModal" role="dialog" style="padding-left: -17px !important; z-index: 1050 !important;">
+    <div class="modal-dialog">
+        <div class="modal-content CustomModal">
+            <div class="modal-header CustomHeader">
+                <button type="button" class="close" id="closePassword" href data-dismiss="modal">&#10005;</button>
+                <h4 class="modal-title">CHANGE YOUR PASSWORD</h4>
+            </div>
+            <div class="modal-body CustomBody">
+                @using (Html.BeginForm("ChangePassword", "SMHome", FormMethod.Post, new { @id = "frmChangePassword" }))
+                {
+                    <div class="form-group">
+                        <input id="oldPswd" value="@TempData["OldPassword"]">
+                        <div class="input-group Password">
+                            @Html.TextBoxFor(m => m.Password, new { @type = "password", @Name = "Password", id = "OldPassword", placeholder = "Old Password", @class = "form-control LoginText", @required = "required" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group Password">
+                            @Html.TextBoxFor(m => m.Password, new { @type = "password", @Name = "Password", id = "Password", placeholder = "New Password", @class = "form-control LoginText", @required = "required" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group Password">
+                            @Html.TextBoxFor(m => m.Confirm_Password, new { @type = "password", @Name = "Password", id = "ConfirmPassword", placeholder = "Confirm Password", @class = "form-control LoginText", @required = "required" })
+                        </div>
+                    </div>
+                    <button id="BtnChangePassword" type="submit" class="btn btn-Login btn-block">CHANGE PASSWORD</button>
+                }
+            </div>
+            @*<div class="modal-footer Customfooter">
+                <p>
+                    <a href="#" class="pull-right forgot" id="Forgot">CHANGE PASSWORD?</a>
+                </p>
+            </div>*@
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="myModal" role="dialog" style="padding-left: -17px !important; z-index: 1050 !important;">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content CustomModal">
+            <div class="modal-header CustomHeader">
+                <button type="button" class="close" id="closeLogin" data-dismiss="modal">&#10005;</button>
+                <h4 class="modal-title">SIGN IN INTO YOUR ACCOUNT</h4>
+            </div>
+            <div class="modal-body CustomBody">
+                @*@using (Html.BeginForm("Login", "Home", FormMethod.Post))
+                    {*@
+                @using (Html.BeginForm("Login", "SMHome", FormMethod.Post, new { @id = "frmLogin" }))
+                {
+                    <div class="form-group">
+                        @*<input type="text" class="form-control LoginText" id="text" placeholder="Username" required>*@
+                        @Html.TextBoxFor(m => m.UserName, new { @Name = "UserName", placeholder = "User Name", @class = "form-control LoginText", @required = "required" })
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group Password">
+                            @Html.TextBoxFor(m => m.Password, new { @type = "password", @Name = "Password", id = "idPassword", placeholder = "Password", @class = "form-control LoginText", @required = "required" })
+                            <div class="input-group-addon" id="showPass1" onclick='myFunction1()'>
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="checkbox">
+                        <label><input type="checkbox" name="RememberMe" onclick="refreshCheckboxValue(this)" value="false">Remember Me</label>
+                    </div>
+                    <button id="btnLog" type="submit" class="btn btn-Login btn-block">LOGIN</button>
+                }
+            </div>
+            @*<div>
+                    @Html.ActionLink("Login with facebook", "Facebook", "Home")
+                    <table>
+                        <tr><td>Email:</td><td><b>@TempData["fb_email"]</b></td></tr>
+                        <tr><td>First Name:</td><td><b>@TempData["fb_first_name"]</b></td></tr>
+                        <tr><td>Last Name:</td><td><b>@TempData["fb_lastname"]</b></td></tr>
+                        <tr><td>Picture:</td><td><b><img src="@TempData["fb_picture"]" /></b></td></tr>
+                    </table>
+                </div>*@
+            <div class="modal-footer Customfooter">
+                <p>
+                    @*<a href="#" class="pull-left forgot" id="Register">SIGNUP HERE!</a>*@
+                    @*<a href="#" class="pull-right forgot">HOME</a>*@
+                    <a id="BtnPassword" class="pull-right forgot" href="~/SMHome/ChangePassword">CHANGE PASSWORD</a>
+
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+@section homeScripts{
+
+    <script type="text/javascript">
+        function refreshCheckboxValue(checkbox) {
+            checkbox.value = checkbox.checked;
+        }
+    </script>
+    <script>
+        function myFunction1() {
+            var x = document.getElementById("idPassword");
+            if (x.type === "password") {
+                x.type = "text";
+            } else {
+                x.type = "password";
+            }
+        }
+    </script>
+    @*@Html.Partial("_Error")*@
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#myModal").modal('show');
+            var oldpsw = $("#oldPswd").val();
+            $("#OldPassword").val() = oldpsw;
+        });
+        //$("#btnLog").click(function () {
+        //    window.location.href = '/FrontEnd/Index';
+        //    $("#myModalReg").modal('hide');
+        //    $("#myModal").modal('hide');
+        //});
+        $("#closeLogin").click(function () {
+            window.location.href = 'Index';
+            $("#myModal").modal('hide');
+        });
+        $("#closePassword").click(function () {
+            window.location.href = 'Index';
+            $("#myPasswordModal").modal('hide');
+        });
+        
+    </script>
+    <script>
+        $("#BtnPassword").click(function () {
+            $("#myModal").modal('hide');
+            $("#myPasswordModal").modal('show');
+        });
+    </script>
+    @*<script type="text/javascript">
+            $(document).ready(function () {
+                var contactnumber;
+                jQuery.validator.addMethod("Contactnumber", function (value, element) {
+                    if (/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/.test(value)) {
+                        return true;
+                    } else {
+                        return false;
+                    };
+                },
+        "<span>Please Enter Valid login ID/Mobile Number</span>");
+
+                jQuery.validator.addMethod("password", function (value, element) {
+                    if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{6,15}$/.test(value)) {
+                        return true;
+                    } else {
+                        return false;
+                    };
+                }, "<span>Please Enter Minimum 8 Character 1 Capital Letter,1 Number and 1 Special Character</span>");
+
+                $("#frmLogin").validate({
+                    // Specify validation rules
+                    rules: {
+                        UserName: { required: true, Contactnumber: true },
+
+                        Password: { required: true, password: true },
+                    },
+                    // Specify validation error messages
+                    messages: {
+                        UserName: { required: "<span>Please Enter Login ID/Mobile Number</span>" },
+                        Password: {
+                            required: "<span>Please Enter Number</span>"
+                        }
+                    },
+                    // Make sure the form is submitted to the destination defined
+                    // in the "action" attribute of the form when valid
+                    submitHandler: function (form) {
+                        form.submit();
+                    }
+                });
+
+                $('span').addClass("text-danger");
+
+            });
+
+        </script>*@
+}

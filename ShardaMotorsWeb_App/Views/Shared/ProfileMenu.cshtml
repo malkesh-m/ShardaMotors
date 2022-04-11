@@ -1,0 +1,78 @@
+﻿
+<style>
+    .ui-autocomplete {
+        max-height: 400px;
+        overflow-y: auto;
+        /* prevent horizontal scrollbar */
+        overflow-x: hidden;
+    }
+    /* IE 6 doesn't support max-height
+    * we use height instead, but this forces the menu to always be this tall
+    */
+    * html .ui-autocomplete {
+        height: 400px;
+    }
+
+    .fixed-height {
+        padding: 6px;
+        max-height: 400px;
+        overflow: auto;
+    }
+</style>
+
+<div class="login"></div>
+<div class="MainHeader1">
+
+    <div class="CustomNavbar2">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-xs-12 text-left">
+
+                    <a href="#" class="navbar-brand">
+                        <img src="~/Content/images/proplogo.png">
+                        <span>Sharda<c> Motor</c></span>
+                    </a>
+
+                </div>
+                <br>
+                <div class="col-lg-6 col-xs-12 text-right">
+                    <div class="CustomNavbar3">
+                        <ul>
+                            <li><img src="~/Images/admin_icon.jpg" height="50" width="50" class="img-circle"></li>
+                            @{
+    if (Session["FrontUserId"] != null)
+    {
+                            <li class="CustomLogin"><a id="btnLogout" href="~/SMHome/UserLogout">LOGOUT</a></li>
+                                    @*<li class="CustomLogin BtnPassword"><a id="BtnPassword" href="~/SMHome/ChangePassword">CHANGE PASSWORD</a></li>*@
+                                }
+                                else
+                                {
+                                    <li class="CustomLogin btnLogin"><a id="btnLogin" href="~/SMHome/Login">LOGIN</a></li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="CustomNavbar1">
+        <nav class="navbar navbar-inverse" style="margin-bottom: 0px;">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav">
+                        <li><a href="#" onclick="history.go(-1); return false;">Back</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>

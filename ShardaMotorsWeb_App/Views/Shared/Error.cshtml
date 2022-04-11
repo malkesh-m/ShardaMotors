@@ -1,0 +1,25 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+@{
+    ViewBag.Title = "Error";
+}
+<script src="~/scripts/SweetAlert/jquery-1.10.2.js"></script>
+<link href="~/scripts/SweetAlert/sweetalert.css" rel="stylesheet" />
+<script src="~/scripts/SweetAlert/sweetalert.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script type="text/javascript">
+      @if (TempData["ChangePassword"] != null)
+      {
+        <text>
+    $(window).load(function () {
+        $(document).ready(function () {
+            sweetAlert({ title: "Message", text: "@TempData["ChangePassword"]", type: "success" });
+            @*swal(@TempData["ChangePassword"], @TempData["ChangePassword"], type: "success").then(okay => {
+
+                    window.setTimeout(window.location.href = "/SMHome/Index",5000);
+                });*@
+        });
+    });
+    </text>
+      }
+</script>
